@@ -1,8 +1,8 @@
 package com.example.demo.habit;
 
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Period;
 
 @Entity
 @Table
@@ -19,9 +19,6 @@ public class Habit {
     private String name;
     private String description;
     private LocalDate initialDate;
-
-    @Transient
-    private Integer daysSinceInitialDate;
 
     public Habit() {
     }
@@ -71,14 +68,6 @@ public class Habit {
         this.initialDate = initialDate;
     }
 
-    public Integer getDaysSinceInitialDate() {
-        return Period.between(this.initialDate, LocalDate.now()).getDays();
-    }
-
-    public void setDaysSinceInitialDate(Integer daysSinceInitialDate) {
-        this.daysSinceInitialDate = daysSinceInitialDate;
-    }
-
     @Override
     public String toString() {
         return "Habit{" +
@@ -89,3 +78,4 @@ public class Habit {
                 '}';
     }
 }
+

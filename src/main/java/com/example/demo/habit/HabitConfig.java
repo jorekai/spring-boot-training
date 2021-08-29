@@ -15,12 +15,12 @@ public class HabitConfig {
         return args -> {
             Habit stretch = new Habit(
                     "Stretching",
-                    "Daily Stretching Routine.",
+                    "Stretching Routine.",
                     LocalDate.of(2021, 8, 1)
             );
             Habit workout = new Habit(
                     "Workout",
-                    "Every Second Day Routine.",
+                    "Workout Routine.",
                     LocalDate.of(2021, 8, 22)
             );
 
