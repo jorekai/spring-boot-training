@@ -34,6 +34,13 @@ public class HabitService {
         habitRepository.save(targetHabit);
     }
 
+    public Optional<Habit> getHabitById(Long id) {
+        if (!habitRepository.existsById(id)) {
+            throw new IllegalStateException(String.format("Habit with id %d does not exist!", id));
+        }
+        return habitRepository.findById(id);
+    }
+
     public void deleteHabitById(Long id) {
         if (!habitRepository.existsById(id)) {
             throw new IllegalStateException(String.format("Habit with id %d does not exist!", id));

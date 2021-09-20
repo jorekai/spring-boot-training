@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping(path = "api/v1/habit")
@@ -24,6 +25,11 @@ public class HabitController {
     @PostMapping("")
     public void postHabit(@RequestBody HabitDTO habit) {
         habitService.addNewHabit(habit);
+    }
+
+    @GetMapping(path = "{habitId}")
+    public Optional<Habit> getHabit(@PathVariable("habitId") Long id) {
+        return habitService.getHabitById(id);
     }
 
     @DeleteMapping(path = "{habitId}")

@@ -11,5 +11,4 @@ public interface HabitRepository extends JpaRepository<Habit, Long> {
 
     @Query("SELECT h FROM Habit h WHERE h.name = ?1")
     Optional<Habit> findHabitByName(String name);
-
 }
