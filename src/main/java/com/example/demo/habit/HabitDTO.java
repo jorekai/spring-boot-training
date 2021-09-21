@@ -1,8 +1,15 @@
 package com.example.demo.habit;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HabitDTO {
+    private String name;
+    private String description;
+    private LocalDate initialDate;
+    private List<LocalDate> habitDates = new ArrayList<>();
+
     public String getName() {
         return name;
     }
@@ -27,7 +34,11 @@ public class HabitDTO {
         this.initialDate = initialDate;
     }
 
-    private String name;
-    private String description;
-    private LocalDate initialDate;
+    public List<LocalDate> getHabitDates() {
+        return habitDates;
+    }
+
+    public void setHabitDates(List<LocalDate> habitDates) {
+        this.habitDates = habitDates;
+    }
 }

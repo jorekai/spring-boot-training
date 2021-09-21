@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,21 @@ public class HabitService {
     public void deleteHabitById(Long id) {
         throwExceptionIfNotFound(id);
         habitRepository.deleteById(id);
+    }
+
+    public void addNewHabitDate(Long id, Optional<LocalDate> date) {
+        throwExceptionIfNotFound(id);
+        Habit habit = habitRepository.getById(id);
+        List<LocalDate> currentDates = habit.getHabitDates();
+        LocalDate startDate = habit.getInitialDate();
+        LocalDate newDate = date.orElse(LocalDate.now());
+
+        if (currentDates.contains(newDate) || newDate.isBefore(startDate)) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, String.format("Habit with id %d cannot accept the input Date %s!", id, date));
+        }
+        currentDates.add(newDate);
+        habitRepository.save(habit);
     }
 
     @Transactional

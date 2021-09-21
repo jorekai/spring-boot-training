@@ -1,10 +1,14 @@
 package com.example.demo.habit;
 
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@AllArgsConstructor
 @Table
 public class Habit {
     @Id
@@ -20,16 +24,12 @@ public class Habit {
     private String description;
     private LocalDate initialDate;
 
+    @ElementCollection
+    private List<LocalDate> habitDates;
+
     public Habit() {
     }
-
-    public Habit(Long id, String name, String description, LocalDate initialDate) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.initialDate = initialDate;
-    }
-
+    
     public Habit(String name, String description, LocalDate initialDate) {
         this.name = name;
         this.description = description;
@@ -66,6 +66,14 @@ public class Habit {
 
     public void setInitialDate(LocalDate initialDate) {
         this.initialDate = initialDate;
+    }
+
+    public List<LocalDate> getHabitDates() {
+        return habitDates;
+    }
+
+    public void setHabitDates(List<LocalDate> habitDates) {
+        this.habitDates = habitDates;
     }
 
     @Override
