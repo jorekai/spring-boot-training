@@ -1,5 +1,7 @@
 package com.example.demo.habit;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,8 @@ public class HabitDTO {
     private String name;
     private String description;
     private LocalDate initialDate;
+
+    @ApiModelProperty(dataType = "[Ljava.lang.String;")
     private List<LocalDate> habitDates = new ArrayList<>();
 
     public String getName() {

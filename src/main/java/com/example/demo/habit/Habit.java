@@ -1,10 +1,12 @@
 package com.example.demo.habit;
 
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,11 +27,12 @@ public class Habit {
     private LocalDate initialDate;
 
     @ElementCollection
-    private List<LocalDate> habitDates;
+    @ApiModelProperty(dataType = "[Ljava.lang.String;")
+    private List<LocalDate> habitDates = new ArrayList<>();
 
     public Habit() {
     }
-    
+
     public Habit(String name, String description, LocalDate initialDate) {
         this.name = name;
         this.description = description;

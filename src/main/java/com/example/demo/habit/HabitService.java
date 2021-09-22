@@ -29,10 +29,12 @@ public class HabitService {
     public void addNewHabit(@org.jetbrains.annotations.NotNull HabitDTO habit) {
         Optional<Habit> habitOptional = habitRepository.findHabitByName(habit.getName());
 
-        if (habitOptional.isPresent()) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "Habit exists already.");
-        }
+        habitOptional.ifPresentOrElse(h -> {
+                    throw new ResponseStatusException(
+                            HttpStatus.CONFLICT, "Habit exists already.");
+                },
+                () -> {
+                });
         Habit targetHabit = new Habit();
         OptionalPropertyCopy.copyPropertiesOptional(habit, targetHabit);
         habitRepository.save(targetHabit);
