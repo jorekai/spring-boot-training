@@ -13,9 +13,9 @@ The habit package is an example of a complete RESTful API endpoint
 6. The `HabitService` is a Facade for the internal `HabitRepository`. It manages retrieval and updates of the repository
    via decomposing internal and external methods.
 
-## Decorators
+## Annotations
 
-This section lists and explains decorators which are used throughout this package.
+This section lists and explains annotations which are used throughout this package.
 
 1. **Habit**
     1. `@Entity` `@Table` `@Id` `@SequenceGenerator` `@GeneratedValue`
@@ -28,7 +28,7 @@ This section lists and explains decorators which are used throughout this packag
 5. **HabitService**
     1. `@Service` `@Autowired` `@Transactional`
 
-### Decorators - Habit
+### Annotations - Habit
 
 1. **@Entity**
     1. A class of type Entity indicates a class that, at an abstract level, is correlated with a table in the database.
@@ -36,7 +36,7 @@ This section lists and explains decorators which are used throughout this packag
        latter.
     2. Docs: https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
 2. **@Table**
-    1. Defines the Entity Name as the JPA correlated Table name. Leaving the decorator as it is will name the DB table
+    1. Defines the Entity Name as the JPA correlated Table name. Leaving the annotation as it is will name the DB table
        exactly as the class name. We can provide a parameter `@Table(name=xyz)`, which will name the table in the db
        accordingly
 3. **JPA primary key assignment**
@@ -44,7 +44,7 @@ This section lists and explains decorators which are used throughout this packag
         1. Defines a primary key generator that may be referenced by name when a generator element is specified for the
            GeneratedValue annotation. A sequence generator may be specified on the entity class or on the primary key
            field or property.
-        2. Provide a SequenceGenerator if the decorator **@GeneratedValue** uses the following
+        2. Provide a SequenceGenerator if the annotation **@GeneratedValue** uses the following
            strategy: `strategy = GenerationType.SEQUENCE`
     2. **@GeneratedValue**
         1. Provides for the specification of generation strategies for the values of primary keys. The GeneratedValue
@@ -55,7 +55,7 @@ This section lists and explains decorators which are used throughout this packag
            strategies``GenerationType.AUTO | GenerationType.IDENTITY | GenerationType.SEQUENCE | GenerationType.TABLE``
         3. Docs: https://www.baeldung.com/jpa-strategies-when-set-primary-key
 
-### Decorators - HabitConfig
+### Annotations - HabitConfig
 
 1. **@Configuration**
     1. Indicates that a class declares one or more @Bean methods and may be processed by the Spring container to
@@ -76,7 +76,7 @@ This section lists and explains decorators which are used throughout this packag
     3. Removes the necessity to instantiate every object in our application, as the framework works out which object
        depends on which Beans through dependency injection.
 
-### Decorators - HabitController
+### Annotations - HabitController
 
 1. **@RestController**
     1. @RestController is a specialized version of the controller. It includes the @Controller and @ResponseBody
@@ -95,7 +95,7 @@ This section lists and explains decorators which are used throughout this packag
     1. Specifies the incoming request body by using a Data Transfer Object **DTO**
     2. Docs: https://www.baeldung.com/java-dto-pattern
 
-### Decorators - HabitRepository
+### Annotations - HabitRepository
 
 1. **@Repository**
     1. Indicates that an annotated class is a "Repository", originally defined by Domain-Driven Design (Evans, 2003)
@@ -112,7 +112,7 @@ This section lists and explains decorators which are used throughout this packag
     2. For example: ``@Query("SELECT h FROM Habit h WHERE h.name = ?1")``
     3. Docs: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 
-### Decorators - HabitService
+### Annotations - HabitService
 
 1. **@Service**
     1. Indicates that an annotated class is a "Service", originally defined by Domain-Driven Design (Evans, 2003) as "an
@@ -123,7 +123,9 @@ This section lists and explains decorators which are used throughout this packag
 2. **@Transactional**
     1. We can use @Transactional to wrap a method in a database transaction. It allows us to set propagation, isolation,
        timeout, read-only, and rollback conditions for our transaction. We can also specify the transaction manager.
-    2. Side effects of different Isolation parameters: https://www.baeldung.com/spring-transactional-propagation-isolation
+    2. Side effects of different Isolation
+       parameters: https://www.baeldung.com/spring-transactional-propagation-isolation
+
 ## Domain-Driven Design - Overview
 
 ![img](https://archfirst.org/static/bfoms-layered-architecture-e3fdd1f76db55bb7b2851a09442d1c70-91d80.png)
