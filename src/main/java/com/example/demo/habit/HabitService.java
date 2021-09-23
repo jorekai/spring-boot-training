@@ -51,13 +51,13 @@ public class HabitService {
     }
 
     public void addNewHabitDate(Long id, Optional<LocalDate> date) {
-        throwExceptionIfNotFound(id);
-        Habit habit = habitRepository.getById(id);
+        Habit habit = tryToGetHabitById(id);
         List<LocalDate> currentDates = habit.getHabitDates();
         LocalDate startDate = habit.getInitialDate();
         LocalDate newDate = date.orElse(LocalDate.now());
+        Boolean inputDateIsWrong = currentDates.contains(newDate) || newDate.isBefore(startDate);
 
-        if (currentDates.contains(newDate) || newDate.isBefore(startDate)) {
+        if (Boolean.TRUE.equals(inputDateIsWrong)) {
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN, String.format("Habit with id %d cannot accept the input Date %s!", id, date));
         }
@@ -65,10 +65,23 @@ public class HabitService {
         habitRepository.save(habit);
     }
 
+    public void removeDateFromList(Long id, LocalDate date) {
+        Habit habit = tryToGetHabitById(id);
+        List<LocalDate> currentDates = habit.getHabitDates();
+        LocalDate startDate = habit.getInitialDate();
+        Boolean inputDateIsWrong = !currentDates.contains(date) || date.isBefore(startDate);
+
+        if (Boolean.TRUE.equals(inputDateIsWrong)) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, String.format("Habit with id %d cannot accept the input Date %s!", id, date));
+        }
+        currentDates.remove(date);
+        habitRepository.save(habit);
+    }
+
     @Transactional
     public void updateHabitById(Long id, HabitDTO habit) {
-        throwExceptionIfNotFound(id);
-        Habit sourceHabit = habitRepository.getById(id);
+        Habit sourceHabit = tryToGetHabitById(id);
         OptionalPropertyCopy.copyPropertiesOptional(habit, sourceHabit);
         habitRepository.save(sourceHabit);
     }
@@ -78,5 +91,10 @@ public class HabitService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, String.format("Habit with id %d does not exist!", id));
         }
+    }
+
+    private Habit tryToGetHabitById(Long id) {
+        throwExceptionIfNotFound(id);
+        return habitRepository.getById(id);
     }
 }

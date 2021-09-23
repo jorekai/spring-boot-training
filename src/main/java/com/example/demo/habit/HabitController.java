@@ -46,7 +46,7 @@ public class HabitController {
         habitService.updateHabitById(id, habit);
     }
 
-    @PostMapping(path = "{habitId}")
+    @PostMapping(path = "{habitId}/dates")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "date",
@@ -60,6 +60,11 @@ public class HabitController {
     })
     public void addNewHabitDate(@PathVariable("habitId") Long id, @RequestBody(required = false) Optional<LocalDate> date) {
         habitService.addNewHabitDate(id, date);
+    }
+
+    @DeleteMapping(path = "{habitId}/dates")
+    public void removeDateFromList(@PathVariable("habitId") Long id, @RequestBody LocalDate date) {
+        habitService.removeDateFromList(id, date);
     }
 }
 
