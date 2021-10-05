@@ -85,6 +85,7 @@
                 <version>${project.parent.version}</version>
             </plugin>
         </plugins>
+        <finalName>spring-boot-training-docker</finalName>
     </build>
     <repositories>
         <repository>
